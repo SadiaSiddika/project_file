@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Doctors - ThyroScan</title>
+  <link rel="stylesheet" href="../styles/clinical_administrator.css">
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="logo">🦋 ThyroScan</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="support.html">Support</a></li>
+      <li><button onclick="logoutUser()">Logout</button></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+
+    <!-- HERO -->
+    <div class="hero">
+      <h1>Find Your Thyroid Specialist</h1>
+      <p>Expert care from board-certified endocrinologists and thyroid specialists</p>
+    </div>
+
+    <!-- SEARCH + FILTER -->
+    <div class="filter-box">
+      <input type="text" id="searchInput" placeholder="Search doctors by name or specialization..."
+        onkeyup="filterDoctors()">
+
+      <div class="days">
+        <button onclick="filterDay('all')">All Days</button>
+        <button onclick="filterDay('Monday')">Monday</button>
+        <button onclick="filterDay('Tuesday')">Tuesday</button>
+        <button onclick="filterDay('Wednesday')">Wednesday</button>
+        <button onclick="filterDay('Thursday')">Thursday</button>
+        <button onclick="filterDay('Friday')">Friday</button>
+        <button onclick="filterDay('Saturday')">Saturday</button>
+      </div>
+    </div>
+
+    <!-- DOCTOR LIST -->
+    <div id="doctorList" class="doctor-grid"></div>
+
+    <!-- ================= DETAILS ================= -->
+    <div id="doctorDetails" class="hidden">
+
+      <button class="back-btn" onclick="goBack()">← Back to Doctors</button>
+
+      <div class="details-grid">
+
+        <!-- LEFT -->
+        <div class="details-left">
+          <img id="docImg">
+
+          <h2 id="docName"></h2>
+          <p class="spec" id="docSpec"></p>
+
+          <div class="rating" id="docRating"></div>
+
+          <div class="info-grid">
+            <div><b>Experience:</b> <span id="docExp"></span></div>
+            <div><b>Fee:</b> <span id="docFee"></span></div>
+            <div><b>Languages:</b> <span id="docLang"></span></div>
+            <div><b>Education:</b> <span id="docEdu"></span></div>
+          </div>
+
+          <h3>Available Days</h3>
+          <div id="docDays" class="badges"></div>
+
+          <h3>About</h3>
+          <p id="docAbout"></p>
+
+          <h3>Clinic Information</h3>
+          <p>📍 ThyroCare Clinic, Dhaka</p>
+          <p>📞 +880123456789</p>
+          <p>✉ info@thyrocare.com</p>
+
+        </div>
+
+        <!-- RIGHT -->
+        <div class="details-right">
+
+          <h3>Book Appointment</h3>
+
+          <input type="text" placeholder="Full Name" id="name">
+          <input type="text" placeholder="Phone Number" id="phone">
+          <input type="email" placeholder="Email Address" id="email">
+          <input type="date" id="date">
+
+          <label>Select Time Slot</label>
+          <div class="time-slots" id="timeSlots"></div>
+
+          <div class="notice">
+            You will receive confirmation within 24 hours.
+          </div>
+
+          <button class="confirm" onclick="book()">Confirm Booking</button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ================= CONTACT SECTION ================= -->
+  <div class="contact-section">
+
+    <div>
+      <h2>Contact Us</h2>
+      <p>📍 123 Medical Center Drive</p>
+      <p>New York, NY 10001</p>
+
+      <p><b>Phone:</b> (555) 123-4567</p>
+      <p><b>Email:</b> info@thyroidcare.com</p>
+    </div>
+
+    <div>
+      <h3>Hours</h3>
+      <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
+      <p>Saturday: 9:00 AM - 2:00 PM</p>
+      <p>Sunday: Closed</p>
+    </div>
+
+    <div>
+      <h3>Emergency</h3>
+      <p>For medical emergencies, please call 911 or visit the nearest emergency room.</p>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2026 ThyroScan. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+
+    let selectedDay = "all";
+    let selectedTime = "";
+
+    const doctors = [
+      { id: 1, name: "Dr. Sarah Johnson", specialization: "Endocrinology", rating: 4.9, reviews: 120, image: "../assets/images/doc1.jfif", experience: 10, fee: 1500, languages: ["English", "Bengali"], education: "MBBS, MD", availability: ["Monday", "Wednesday", "Friday"], about: "Expert in thyroid disorders." },
+      { id: 2, name: "Dr. Michael Chen", specialization: "Oncology", rating: 4.8, reviews: 98, image: "../assets/images/doc2.jfif", experience: 8, fee: 2000, languages: ["English", "Chinese"], education: "MBBS", availability: ["Tuesday", "Thursday"], about: "Cancer specialist." },
+      { id: 3, name: "Dr. Emily Davis", specialization: "Internal Medicine", rating: 4.7, reviews: 85, image: "../assets/images/doc3.jfif", experience: 7, fee: 1200, languages: ["English"], education: "MBBS", availability: ["Monday", "Thursday"], about: "General physician." },
+      { id: 4, name: "Dr. James Wilson", specialization: "Endocrinology", rating: 4.9, reviews: 110, image: "../assets/images/doc4.jfif", experience: 12, fee: 1800, languages: ["English", "Hindi"], education: "MBBS", availability: ["Wednesday", "Saturday"], about: "Thyroid expert." },
+      { id: 5, name: "Dr. Ayesha Rahman", specialization: "Endocrinology", rating: 4.8, reviews: 90, image: "../assets/images/doc5.jfif", experience: 9, fee: 1600, languages: ["English", "Bengali"], education: "MBBS", availability: ["Sunday", "Tuesday"], about: "Hormonal specialist." },
+      { id: 6, name: "Dr. Tanvir Ahmed", specialization: "Oncology", rating: 4.6, reviews: 75, image: "../assets/images/doc6.jfif", experience: 6, fee: 1400, languages: ["English", "Bengali"], education: "MBBS", availability: ["Monday", "Friday"], about: "Cancer care expert." }
+    ];
+
+    const timeSlots = ["9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "2:00 PM", "2:30 PM", "3:00 PM", "3:30 PM", "4:00 PM"];
+
+    function renderDoctors() {
+      const list = document.getElementById("doctorList");
+      list.innerHTML = "";
+
+      const search = document.getElementById("searchInput").value.toLowerCase();
+
+      doctors.forEach(doc => {
+        const matchSearch = doc.name.toLowerCase().includes(search) || doc.specialization.toLowerCase().includes(search);
+        const matchDay = selectedDay === "all" || doc.availability.includes(selectedDay);
+
+        if (matchSearch && matchDay) {
+          list.innerHTML += `
+      <div class="doctor-card" onclick="showDoctor(${doc.id})">
+        <img src="${doc.image}">
+        <h3>${doc.name}</h3>
+        <p>${doc.specialization}</p>
+        <div class="rating">⭐ ${doc.rating} (${doc.reviews})</div>
+        <p>${doc.experience} years experience</p>
+        <p>৳${doc.fee}</p>
+        <p>${doc.languages.join(", ")}</p>
+        <div class="badges">${doc.availability.map(d => `<span>${d}</span>`).join("")}</div>
+        <button>Book Appointment</button>
+      </div>`;
+        }
+      });
+    }
+
+    function filterDoctors() { renderDoctors(); }
+    function filterDay(day) { selectedDay = day; renderDoctors(); }
+
+    function showDoctor(id) {
+      const doc = doctors.find(d => d.id === id);
+      document.getElementById("doctorList").style.display = "none";
+      document.getElementById("doctorDetails").classList.remove("hidden");
+
+      docImg.src = doc.image;
+      docName.innerText = doc.name;
+      docSpec.innerText = doc.specialization;
+      docRating.innerText = `⭐ ${doc.rating}`;
+      docExp.innerText = doc.experience + " years";
+      docFee.innerText = "৳" + doc.fee;
+      docLang.innerText = doc.languages.join(", ");
+      docEdu.innerText = doc.education;
+      docAbout.innerText = doc.about;
+      docDays.innerHTML = doc.availability.map(d => `<span>${d}</span>`).join("");
+
+      const slotDiv = document.getElementById("timeSlots");
+      slotDiv.innerHTML = "";
+      timeSlots.forEach(t => {
+        slotDiv.innerHTML += `<button onclick="selectTime(this,'${t}')">${t}</button>`;
+      });
+    }
+
+    function selectTime(btn, time) {
+      document.querySelectorAll(".time-slots button").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      selectedTime = time;
+    }
+
+    function goBack() {
+      document.getElementById("doctorList").style.display = "grid";
+      document.getElementById("doctorDetails").classList.add("hidden");
+    }
+
+    function book() {
+      if (!name.value || !phone.value || !email.value || !date.value || !selectedTime) {
+        alert("Please fill all fields"); return;
+      }
+      alert("Appointment booked successfully!");
+    }
+
+    renderDoctors();
+    function logoutUser() {
+      alert("Logged out successfully!");
+      window.location.href = "login.html";
+    }
+
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>ThyroScan Login</title>
+  <link rel="stylesheet" href="../styles/login.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">🦋 ThyroScan</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="support.html">Support</a></li>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+  </nav>
+
+  <!-- LOGIN CONTAINER -->
+  <div class="login-container">
+    <div class="login-left">
+      <h1>Welcome to ThyroScan</h1>
+      <p>Sign in to access the thyroid cancer prediction system</p>
+
+      <!-- USER TYPE -->
+      <div class="tabs">
+        <button class="tab active" onclick="selectUser('Patient', this)">Patient</button>
+        <button class="tab" onclick="selectUser('Doctor', this)">Doctor</button>
+        <button class="tab" onclick="selectUser('Administrator', this)">Administrator</button>
+      </div>
+
+      <div class="user-type-box">
+        Logging in as: <strong id="userTypeText">Patient</strong>
+      </div>
+
+      <!-- FORM -->
+      <form class="login-form" onsubmit="return goToApp();">
+        <input type="email" placeholder="Enter your email address" required>
+        <input type="password" placeholder="Enter your password" required>
+
+        <div class="form-options">
+          <label><input type="checkbox"> Remember me</label>
+          <span class="forgot">Forgot password?</span>
+        </div>
+
+        <button type="submit" class="btn-login">Login</button>
+      </form>
+
+      <p class="contact">
+        Don't have an account? <span>Contact your administrator</span>
+      </p>
+    </div>
+
+    <div class="login-right">
+      <div class="info-card">
+        <h3>Patients</h3>
+        <p>Access diagnosis system and view your results</p>
+      </div>
+      <div class="info-card">
+        <h3>Doctors</h3>
+        <p>Manage appointments and review patient diagnoses</p>
+      </div>
+      <div class="info-card">
+        <h3>Administrators</h3>
+        <p>Oversee clinic operations and manage data</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function selectUser(type, element) {
+      document.getElementById("userTypeText").innerText = type;
+      const tabs = document.querySelectorAll(".tab");
+      tabs.forEach(tab => tab.classList.remove("active"));
+      element.classList.add("active");
+    }
+
+    function goToApp() {
+      const userType = document.getElementById("userTypeText").innerText;
+
+      // ✅ SAVE ROLE (IMPORTANT FIX)
+      localStorage.setItem("role", userType.toLowerCase());
+
+      if (userType === "Patient") {
+        window.location.href = "diagnosis.html";
+      }
+      else if (userType === "Doctor") {
+        window.location.href = "doctordashboard.html";
+      }
+      else if (userType === "Administrator") {
+        window.location.href = "clinicadministratordashboard.html";
+      }
+
+      return false;
+    }
+  </script>
+
+</body>
+
+</html>

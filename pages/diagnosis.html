@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>ThyroScan Diagnosis</title>
+  <link rel="stylesheet" href="../styles/diagnosis.css">
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="logo">🦋 ThyroScan</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#" onclick="openDiagnosis()">Diagnosis</a></li>
+      <li><a href="support.html">Support</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><button onclick="logoutUser()">Logout</button></li>
+    </ul>
+  </nav>
+
+  <div class="diagnosis-container">
+    <h2>🩺 Thyroid Cancer Diagnosis</h2>
+
+    <!-- ✅ PATIENT NAME INPUT -->
+    <input type="text" id="patientName" placeholder="Enter Patient Name" required>
+
+    <button onclick="openDiagnosis()">Start Diagnosis</button>
+
+    <iframe id="diagnosisApp" title="Thyroid Diagnosis App"></iframe>
+  </div>
+
+  <script>
+    function openDiagnosis() {
+      const patientName = document.getElementById("patientName").value;
+
+      if (!patientName || patientName.trim() === "") {
+        alert("Please enter patient name!");
+        return;
+      }
+
+      // Save for later use
+      sessionStorage.setItem("patientName", patientName);
+
+      document.getElementById("diagnosisApp").src =
+        `http://localhost:8501/?patient=${encodeURIComponent(patientName)}`;
+    }
+
+    function logoutUser() {
+      sessionStorage.removeItem("patientName");
+      alert("You have been logged out.");
+      window.location.href = "login.html";
+    }
+  </script>
+
+</body>
+
+</html>

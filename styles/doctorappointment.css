@@ -1,0 +1,206 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: linear-gradient(to right, #f3f4f6, #e5e7eb);
+}
+
+/* CONTAINER */
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 30px;
+}
+
+/* HEADER */
+.header h1 {
+  font-size: 32px;
+  margin-bottom: 5px;
+}
+
+.header p {
+  color: gray;
+}
+
+/* SEARCH */
+.search-box {
+  margin-top: 20px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+/* TABS */
+.tabs {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.tab {
+  padding: 10px 15px;
+  background: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: #91cfc8;
+  font-weight: bold;
+}
+
+/* CONTENT */
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* CARD */
+.card {
+  background: white;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+.header-card {
+  background: #91cfc8;
+}
+
+/* CENTER */
+.center {
+  text-align: center;
+}
+
+/* GRID */
+.doctor-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* DOCTOR CARD */
+.doctor-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.doctor-card:hover {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* BADGE */
+.badge {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 6px;
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+.available {
+  background: lightgreen;
+}
+
+.busy {
+  background: gray;
+  color: white;
+}
+
+/* BUTTON */
+button {
+  margin-top: 10px;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  background: #91cfc8;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* TABLE */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 40px;
+  background: #91cfc8;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+.nav-links button {
+  background: red;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* ================= FIX: SCHEDULE HIDE ================= */
+.schedule-box {
+  display: none;
+  margin-top: 10px;
+  padding: 10px;
+  background: #eef2ff;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+/* TREATMENT LIST */
+.treatment-list {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+.treatment-list li {
+  margin-bottom: 6px;
+}
+
+.small-btn {
+  margin-top: 10px;
+  padding: 8px;
+  width: 100%;
+  border: none;
+  background: #6c63ff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}

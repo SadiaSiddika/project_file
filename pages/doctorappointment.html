@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Doctor Appointment - ThyroScan</title>
+  <link rel="stylesheet" href="../styles/doctorappointment.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">🦋 ThyroScan</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="support.html">Support</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><button onclick="logoutUser()">Logout</button></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+      <h1>Find Doctors</h1>
+      <p>Search and manage doctor appointments and patient records</p>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="search-box">
+      <input type="text" placeholder="Search doctors by name or specialty...">
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('schedules', this)">Schedules</button>
+
+      <!-- ✅ FIXED HERE -->
+      <button class="tab" onclick="goToAppointment()">Treatment</button>
+    </div>
+
+    <!-- ================= SCHEDULES ================= -->
+    <div id="schedules" class="tab-content active">
+
+      <div class="card header-card">
+        <h2>Doctors</h2>
+      </div>
+
+      <div class="card center">
+        <h3>103 Doctors are Available Now</h3>
+        <p>Select a doctor to view their schedule and book an appointment</p>
+      </div>
+
+      <div class="doctor-grid">
+
+        <!-- Doctor 1 -->
+        <div class="doctor-card">
+          <h3>Dr. Sarah Johnson</h3>
+          <p>Endocrinology</p>
+          <span class="badge available">Available</span>
+          <p class="rating">⭐ 4.9</p>
+
+          <button onclick="toggleSchedule('schedule1')">View Schedule</button>
+
+          <div id="schedule1" class="schedule-box">
+            <p><strong>Available Days:</strong> Monday, Wednesday, Friday</p>
+            <p><strong>Time:</strong> 10:00 AM - 2:00 PM</p>
+          </div>
+        </div>
+
+        <!-- Doctor 2 -->
+        <div class="doctor-card">
+          <h3>Dr. Michael Chen</h3>
+          <p>Oncology</p>
+          <span class="badge available">Available</span>
+          <p class="rating">⭐ 4.8</p>
+
+          <button onclick="toggleSchedule('schedule2')">View Schedule</button>
+
+          <div id="schedule2" class="schedule-box">
+            <p><strong>Available Days:</strong> Tuesday, Thursday</p>
+            <p><strong>Time:</strong> 2:00 PM - 6:00 PM</p>
+          </div>
+        </div>
+
+        <!-- Doctor 3 -->
+        <div class="doctor-card">
+          <h3>Dr. Emily Davis</h3>
+          <p>Internal Medicine</p>
+          <span class="badge busy">Busy</span>
+          <p class="rating">⭐ 4.7</p>
+
+          <button onclick="toggleSchedule('schedule3')">View Schedule</button>
+
+          <div id="schedule3" class="schedule-box">
+            <p><strong>Available Days:</strong> Saturday</p>
+            <p><strong>Time:</strong> 9:00 AM - 12:00 PM</p>
+          </div>
+        </div>
+
+        <!-- Doctor 4 -->
+        <div class="doctor-card">
+          <h3>Dr. James Wilson</h3>
+          <p>Endocrinology</p>
+          <span class="badge available">Available</span>
+          <p class="rating">⭐ 4.9</p>
+
+          <button onclick="toggleSchedule('schedule4')">View Schedule</button>
+
+          <div id="schedule4" class="schedule-box">
+            <p><strong>Available Days:</strong> Sunday, Tuesday</p>
+            <p><strong>Time:</strong> 11:00 AM - 3:00 PM</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ================= TREATMENT (UNCHANGED) ================= -->
+    <div id="treatment" class="tab-content">
+
+      <div class="card">
+        <h2>Treatment Plans</h2>
+        <p>Doctor decision-making and treatment process for patients</p>
+      </div>
+
+      <div class="card">
+        <h3>Patient: Mahfuz Alam</h3>
+        <p><strong>Diagnosis:</strong> Thyroid Disorder (Moderate Risk)</p>
+        <p><strong>Doctor Decision:</strong> Start medication and monitor hormone levels</p>
+
+        <ul class="treatment-list">
+          <li>💊 Prescribed Levothyroxine</li>
+          <li>📊 Blood test every 2 weeks</li>
+          <li>🥗 Maintain iodine-balanced diet</li>
+          <li>📅 Follow-up after 1 month</li>
+        </ul>
+
+        <button class="small-btn">View Full Report</button>
+      </div>
+
+      <div class="card">
+        <h3>Patient: Susmita Roy</h3>
+        <p><strong>Diagnosis:</strong> Low Risk (Normal)</p>
+        <p><strong>Doctor Decision:</strong> No medication required</p>
+
+        <ul class="treatment-list">
+          <li>✅ Regular health checkup</li>
+          <li>🥗 Balanced diet</li>
+          <li>🏃 Lifestyle improvement</li>
+        </ul>
+
+        <button class="small-btn">View Full Report</button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- JS -->
+  <script>
+    function showTab(tabId, btn) {
+      document.querySelectorAll(".tab-content").forEach(el => {
+        el.classList.remove("active");
+      });
+
+      document.querySelectorAll(".tab").forEach(el => {
+        el.classList.remove("active");
+      });
+
+      document.getElementById(tabId).classList.add("active");
+      btn.classList.add("active");
+    }
+
+    function toggleSchedule(id) {
+      const box = document.getElementById(id);
+
+      if (box.style.display === "block") {
+        box.style.display = "none";
+      } else {
+        box.style.display = "block";
+      }
+    }
+
+    // ✅ NEW FUNCTION
+    function goToAppointment() {
+      window.location.href = "appointment.html";
+    }
+
+    function logoutUser() {
+      alert("Logged out successfully!");
+      window.location.href = "login.html";
+    }
+  </script>
+
+</body>
+
+</html>

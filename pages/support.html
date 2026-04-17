@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Support - ThyroScan</title>
+  <link rel="stylesheet" href="../styles/support.css">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">🦋 ThyroScan</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="support.html">Support</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><button onclick="logoutUser()">Logout</button></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+
+    <h1 class="main-title">Support & Workflow</h1>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <!-- Doctor redirect -->
+      <a href="doctorappointment.html" class="tab active">Doctor Appointment</a>
+
+      <!-- ✅ FIXED: Redirect to clinic_administrator.html -->
+      <a href="clinical_administrator.html" class="tab">Clinic Administrators</a>
+
+      <!-- KEEP SAME -->
+      <button class="tab" onclick="showTab('report')">Report</button>
+    </div>
+
+    <!-- ================= DOCTOR ================= -->
+    <div id="doctor" class="tab-content active">
+      <div class="card">
+        <h2>Doctor Appointment Workflow</h2>
+        <p>Step-by-step process for managing patient appointments and treatment</p>
+
+        <div class="grid grid-4">
+
+          <div class="workflow">
+            <div class="circle">1</div>
+            <h3>Doctor Name</h3>
+            <p>Select the assigned doctor for the patient</p>
+          </div>
+
+          <div class="workflow">
+            <div class="circle">2</div>
+            <h3>Appointment Time</h3>
+            <p>Schedule the appointment date and time</p>
+          </div>
+
+          <div class="workflow">
+            <div class="circle">3</div>
+            <h3>Decision Making</h3>
+            <p>Review diagnosis results and make decisions</p>
+          </div>
+
+          <div class="workflow">
+            <div class="circle">4</div>
+            <h3>Treatment</h3>
+            <p>Initiate appropriate treatment plan</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= ADMIN ================= -->
+    <div id="admin" class="tab-content">
+      <div class="card">
+        <h2>Clinic Administrator Workflow</h2>
+        <p>Data management and administrative processes</p>
+
+        <div class="grid grid-3">
+
+          <div class="workflow">
+            <div class="circle">1</div>
+            <h3>Patient Info</h3>
+            <p>Access and manage patient records</p>
+          </div>
+
+          <div class="workflow">
+            <div class="circle">2</div>
+            <h3>Store Data</h3>
+            <p>Securely store diagnosis results</p>
+          </div>
+
+          <div class="workflow">
+            <div class="circle">3</div>
+            <h3>Doctor Availability</h3>
+            <p>Manage doctor schedules</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= REPORT ================= -->
+    <div id="report" class="tab-content">
+      <div class="card">
+        <h2>Report Generation</h2>
+        <p>Access and download medical reports</p>
+
+        <div class="grid grid-1">
+          <div class="workflow">
+            <div class="circle">1</div>
+            <h3>Download Report</h3>
+            <p>Generate full diagnosis report with patient data</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ================= FEATURES ================= -->
+    <div class="card features">
+      <h2>System Features</h2>
+
+      <div class="grid grid-2">
+
+        <div>
+          <h3>For Healthcare Providers</h3>
+          <ul>
+            <li>AI-assisted diagnosis predictions</li>
+            <li>Patient history tracking</li>
+            <li>Secure data management</li>
+            <li>Appointment scheduling</li>
+            <li>Treatment planning</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>For Administrators</h3>
+          <ul>
+            <li>Patient record management</li>
+            <li>Doctor availability tracking</li>
+            <li>Report generation</li>
+            <li>Data analytics</li>
+            <li>Workflow optimization</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TAB SCRIPT -->
+  <script>
+    function showTab(id) {
+      document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
+      document.querySelectorAll(".tab").forEach(el => el.classList.remove("active"));
+
+      document.getElementById(id).classList.add("active");
+      event.target.classList.add("active");
+    }
+  </script>
+
+</body>
+
+</html>

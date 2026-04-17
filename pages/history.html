@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clinic Admin Dashboard</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="../styles/history.css">
+</head>
+
+<body>
+
+  <header>
+    Clinic Administrator Dashboard
+  </header>
+
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <h2>Menu</h2>
+      <a href="#">Dashboard</a>
+      <a href="#">Doctors</a>
+      <a href="#">Analytics</a>
+      <a href="#">Patients</a>
+      <a href="#">Reports</a>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- CARDS -->
+      <section class="cards">
+        <div class="card">
+          <h3>Doctors</h3>
+          <p>12 Active</p>
+        </div>
+        <div class="card">
+          <h3>Patients</h3>
+          <p>248 Registered</p>
+        </div>
+        <div class="card">
+          <h3>AI Model</h3>
+          <p>Thyroid Prediction</p>
+        </div>
+      </section>
+
+      <!-- DASHBOARD GRID -->
+      <div class="dashboard">
+
+        <!-- CHART -->
+        <section class="panel">
+          <h2>Thyroid Cancer Prediction History</h2>
+          <canvas id="chart"></canvas>
+        </section>
+
+        <!-- TABS -->
+        <section class="panel">
+
+          <!-- TAB BUTTONS -->
+          <div class="tabs">
+            <button class="tab-btn active" onclick="openTab('doctors')">Doctor List</button>
+            <button class="tab-btn" onclick="openTab('diagnosis')">Diagnosis History</button>
+            <button class="tab-btn" onclick="openTab('reports')">Medical Reports</button>
+          </div>
+
+          <!-- DOCTORS TAB -->
+          <div id="doctors" class="tab-content active">
+            <table>
+              <tr>
+                <th>Name</th>
+                <th>Specialty</th>
+                <th>Patients</th>
+                <th>Status</th>
+              </tr>
+              <tr>
+                <td>Dr. Ahmed</td>
+                <td>Endocrinologist</td>
+                <td>120</td>
+                <td>Active</td>
+              </tr>
+              <tr>
+                <td>Dr. Rahman</td>
+                <td>Radiologist</td>
+                <td>98</td>
+                <td>Active</td>
+              </tr>
+            </table>
+          </div>
+
+          <!-- DIAGNOSIS TAB -->
+          <div id="diagnosis" class="tab-content">
+            <table>
+              <tr>
+                <th>Patient</th>
+                <th>Doctor</th>
+                <th>Diagnosis</th>
+                <th>No. of Times</th>
+                <th>Date</th>
+              </tr>
+
+              <tr>
+                <td>John Doe</td>
+                <td>Dr. Ahmed</td>
+                <td>Low Risk</td>
+                <td>3</td>
+                <td>2026-04-10</td>
+              </tr>
+
+              <tr>
+                <td>Sara Khan</td>
+                <td>Dr. Rahman</td>
+                <td>Medium Risk</td>
+                <td>5</td>
+                <td>2026-04-12</td>
+              </tr>
+            </table>
+          </div>
+
+          <!-- REPORTS TAB -->
+          <div id="reports" class="tab-content">
+            <table>
+              <tr>
+                <th>Patient</th>
+                <th>Report</th>
+                <th>Result</th>
+                <th>Action</th>
+              </tr>
+              <tr>
+                <td>John Doe</td>
+                <td>Thyroid Scan</td>
+                <td>Normal</td>
+                <td><button>Download</button></td>
+              </tr>
+              <tr>
+                <td>Sara Khan</td>
+                <td>Blood Test</td>
+                <td>Abnormal</td>
+                <td><button>Download</button></td>
+              </tr>
+            </table>
+          </div>
+
+        </section>
+
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+
+    /* CHART */
+    new Chart(document.getElementById("chart"), {
+      type: "bar",
+      data: {
+        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+        datasets: [{
+          label: "Thyroid Risk Cases",
+          data: [12, 19, 7, 15, 22, 10],
+          backgroundColor: "#2563eb"
+        }]
+      }
+    });
+
+    /* TABS */
+    function openTab(tabName) {
+
+      let tabs = document.querySelectorAll(".tab-content");
+      let btns = document.querySelectorAll(".tab-btn");
+
+      tabs.forEach(t => t.classList.remove("active"));
+      btns.forEach(b => b.classList.remove("active"));
+
+      document.getElementById(tabName).classList.add("active");
+      event.target.classList.add("active");
+    }
+
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Appointment - ThyroScan</title>
+  <link rel="stylesheet" href="../styles/appointment.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">🦋 ThyroScan</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="support.html">Support</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><button onclick="logoutUser()">Logout</button></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+      <h1>Appointment Dashboard</h1>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('prescription', this)">Prescription</button>
+      <button class="tab" onclick="showTab('appointments', this)">Appointments</button>
+    </div>
+
+    <!-- PRESCRIPTION -->
+    <div id="prescription" class="tab-content active">
+
+      <div class="card header-card">
+        <h2>Doctor Prescription System</h2>
+      </div>
+
+      <div class="card center">
+        <h3>Patient & Doctor Data</h3>
+        <p>Both roles will appear here</p>
+      </div>
+
+      <div id="prescriptionList" class="doctor-grid"></div>
+
+    </div>
+
+    <!-- APPOINTMENTS -->
+    <div id="appointments" class="tab-content">
+
+      <div class="card">
+        <h2>Join Appointment</h2>
+
+        <input type="text" id="userNameInput" placeholder="Enter name">
+        <button onclick="startAppointment()">Join Zoom</button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+
+    // ✅ GET ROLE FROM LOGIN
+    let userRole = localStorage.getItem("role") || "patient";
+
+    function showTab(tabId, btn) {
+      document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
+      document.querySelectorAll(".tab").forEach(el => el.classList.remove("active"));
+
+      document.getElementById(tabId).classList.add("active");
+      btn.classList.add("active");
+    }
+
+    // ✅ FIX PLACEHOLDER BASED ON ROLE
+    window.onload = function () {
+      const input = document.getElementById("userNameInput");
+
+      if (userRole === "doctor") {
+        input.placeholder = "Enter doctor name";
+      } else {
+        input.placeholder = "Enter patient name";
+      }
+    };
+
+    function startAppointment() {
+      const name = document.getElementById("userNameInput").value;
+
+      if (!name) {
+        alert("Please enter name");
+        return;
+      }
+
+      const container = document.getElementById("prescriptionList");
+      const id = "p" + Date.now();
+
+      let roleLabel = userRole === "doctor" ? "Doctor" : "Patient";
+
+      let doctorName = userRole === "doctor" ? name : "Dr. ThyroScan Team";
+      let patientName = userRole === "patient" ? name : "Assigned Patient";
+
+      const card = document.createElement("div");
+      card.className = "doctor-card";
+
+      card.innerHTML = `
+        <h3>${roleLabel}: ${name}</h3>
+
+        
+        <p><strong>Patient:</strong> ${patientName}</p>
+
+        <span class="badge available">Active Case</span>
+        <p class="rating">⭐ Consultation Running</p>
+
+        <button onclick="togglePrescription('${id}')">View Prescription</button>
+
+        <div id="${id}" class="schedule-box">
+          <p><strong>Doctor Prescription:</strong></p>
+          
+          <p>🧑 Patient: ${patientName}</p>
+          <p>💊 Treatment Plan</p>
+          <p>📊 Monitoring</p>
+          <p>🥗 Diet Plan</p>
+        </div>
+      `;
+
+      container.appendChild(card);
+
+      window.open("https://zoom.us/j/1234567890", "_blank");
+    }
+
+    function togglePrescription(id) {
+      const box = document.getElementById(id);
+      box.style.display = box.style.display === "block" ? "none" : "block";
+    }
+
+    function logoutUser() {
+      alert("Logged out successfully!");
+      window.location.href = "login.html";
+    }
+
+  </script>
+
+</body>
+
+</html>

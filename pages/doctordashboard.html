@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Doctor Appointment - ThyroScan</title>
+  <link rel="stylesheet" href="../styles/doctordashboard.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">🦋 ThyroScan</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="support.html">Support</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><button onclick="logoutUser()">Logout</button></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+      <h1>Doctor Dashboard</h1>
+
+    </div>
+
+    <!-- SEARCH -->
+
+
+    <!-- TABS (ONLY 2 NOW) -->
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('patients', this)">Patients</button>
+      <button class="tab" onclick="showTab('appointments', this)">Appointments</button>
+    </div>
+
+    <!-- ================= PATIENTS ================= -->
+    <div id="patients" class="tab-content active">
+
+      <div class="card">
+        <h2>Patients List</h2>
+      </div>
+
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Patient Name</th>
+              <th>Diagnosis No.</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Score</th>
+              <th>Report</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Mahfuz Alam</td>
+              <td>1</td>
+              <td>10:20 AM</td>
+              <td>10:25 AM</td>
+              <td><span class="badge high">67%</span></td>
+              <td><button class="small-btn">View</button></td>
+            </tr>
+
+            <tr>
+              <td>Susmita Roy</td>
+              <td>2</td>
+              <td>8:10 PM</td>
+              <td>8:13 PM</td>
+              <td><span class="badge low">13%</span></td>
+              <td><button class="small-btn">View</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <!-- ================= APPOINTMENTS ================= -->
+    <div id="appointments" class="tab-content">
+
+      <div class="card">
+        <h2>Upcoming Appointments</h2>
+      </div>
+
+      <!-- Appointment 1 -->
+      <div class="appointment-card">
+        <h3>Mahfuz Alam</h3>
+        <p>⏰ 10:20 AM - 10:25 AM</p>
+        <span class="badge">Diagnosis #1</span>
+
+        <button onclick="joinMeeting()">Join Meeting</button>
+      </div>
+
+      <!-- Appointment 2 -->
+      <div class="appointment-card">
+        <h3>Susmita Roy</h3>
+        <p>⏰ 8:10 PM - 8:13 PM</p>
+        <span class="badge">Diagnosis #2</span>
+
+        <button onclick="joinMeeting()">Join Meeting</button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- JS -->
+  <script>
+    function showTab(tabId, btn) {
+      document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
+      document.querySelectorAll(".tab").forEach(el => el.classList.remove("active"));
+
+      document.getElementById(tabId).classList.add("active");
+      btn.classList.add("active");
+    }
+
+    function joinMeeting() {
+      window.location.href = "appointment.html";
+    }
+
+    function logoutUser() {
+      alert("Logged out successfully!");
+      window.location.href = "login.html";
+    }
+  </script>
+
+</body>
+
+</html>

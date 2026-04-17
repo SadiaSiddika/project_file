@@ -1,0 +1,110 @@
+/* General body styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+}
+
+/* Card styling */
+.card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+/* Card header */
+.card-header {
+  margin-bottom: 10px;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-description {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Workflow step */
+.workflow-step {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 12px;
+  border-radius: 10px;
+  background-color: #c098a7;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.workflow-step:hover {
+  background-color: #b07c8d;
+}
+
+.workflow-step-icon {
+  font-size: 24px;
+}
+
+.step-content h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Report output box */
+.report-output {
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #eef2f7;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Grid layout for system features */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+h3.section-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Lists */
+ul {
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+/* Optional: make cards responsive on small screens */
+@media (max-width: 600px) {
+  .card {
+    padding: 15px;
+  }
+
+  .workflow-step {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .workflow-step-icon {
+    font-size: 20px;
+  }
+}

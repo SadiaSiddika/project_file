@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medical Report</title>
+  <link rel="stylesheet" href="report.css">
+</head>
+
+<body>
+
+  <!-- Report Card -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">📄 Report Generation</div>
+      <div class="card-description">Access and download medical reports</div>
+    </div>
+    <div class="card-content">
+      <div class="workflow-step" onclick="downloadReport()">
+        <div class="workflow-step-icon">📄</div>
+        <div class="step-content">
+          <h3>Download the Medical Report</h3>
+
+        </div>
+      </div>
+      <div id="report-output" class="report-output" style="display:none;"></div>
+    </div>
+  </div>
+
+  <!-- System Features -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">System Features</div>
+    </div>
+    <div class="card-content">
+      <div class="grid">
+        <div>
+          <h3 class="section-title">For Healthcare Providers</h3>
+          <ul>
+            <li> AI-assisted diagnosis predictions</li>
+            <li>Comprehensive patient history tracking</li>
+            <li>Secure data management</li>
+            <li>Appointment scheduling</li>
+            <li>Treatment planning support</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="section-title">For Administrators</h3>
+          <ul>
+            <li>Patient record management</li>
+            <li>Doctor availability tracking</li>
+            <li>Report generation and download</li>
+            <li>Data analytics and insights</li>
+            <li>Workflow optimization</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</body>
+
+</html>

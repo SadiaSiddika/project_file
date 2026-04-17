@@ -1,0 +1,230 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f5f7fa;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding-top: 80px; /* space for navbar */
+}
+
+/* NAVBAR */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 40px;
+  background: #91cfc8;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+}
+
+/* CONTAINER CENTERED AND RESPONSIVE */
+.login-container {
+  max-width: 900px; /* wider container */
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* LEFT */
+.login-left {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* HEADINGS */
+.login-left h1 {
+  margin-bottom: 10px;
+  font-size: 28px;
+}
+
+.login-left p {
+  margin-bottom: 20px;
+  color: #555;
+  font-size: 16px;
+}
+
+/* TABS */
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: #eee;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.tab.active {
+  background: #91cfc8;
+  font-weight: bold;
+}
+
+/* USER BOX */
+.user-type-box {
+  background: #e6f4f3;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+/* FORM */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.login-form input {
+  padding: 12px;
+  border: none;
+  background: #f0d9cf;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+/* OPTIONS */
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.forgot {
+  color: blue;
+  cursor: pointer;
+}
+
+/* BUTTON */
+.btn-login {
+  padding: 14px;
+  background: #ae7861;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* CONTACT */
+.contact {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.contact span {
+  color: blue;
+  cursor: pointer;
+}
+
+/* INFO CARDS FLEX BELOW FORM */
+.login-right {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap; /* allow wrapping on smaller screens */
+  margin-top: 30px;
+}
+
+.info-card {
+  flex: 1 1 250px; /* flexible and minimum width 250px */
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+  min-width: 200px;
+}
+
+/* RESPONSIVE */
+@media screen and (max-width: 768px) {
+  .login-container {
+    width: 95%;
+    padding: 20px;
+  }
+
+  .login-left {
+    padding: 30px;
+  }
+
+  .login-right {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .info-card {
+    min-width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .login-left h1 {
+    font-size: 24px;
+  }
+
+  .login-left p {
+    font-size: 14px;
+  }
+
+  .tab {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  .btn-login {
+    font-size: 15px;
+    padding: 12px;
+  }
+}
+/* LOGOUT BUTTON */
+.btn-logout {
+  padding: 8px 12px;
+  background: #ae7861;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-logout:hover {
+  background: #915a4a;
+}

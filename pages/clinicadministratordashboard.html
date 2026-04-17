@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Patient History</title>
+
+  <link rel="stylesheet" href="../styles/clinicadministratordashboard.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container">
+      <div class="logo">
+        <div class="logo-box">🩺</div>
+        <div>
+          <div class="title">Clinical Administrator</div>
+          <small class="subtitle">ThyroeCare Clinic Management</small>
+        </div>
+      </div>
+
+      <nav class="navbar">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="support.html">Support</a></li>
+          <li><button onclick="logoutUser()">Logout</button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <h2>Patient History</h2>
+    <p>Manage patient appointments and serial numbers</p>
+
+    <!-- STATS -->
+    <div class="stats">
+      <div class="card"><b>Total</b>
+        <h3 id="total"></h3>
+      </div>
+      <div class="card"><b>Pending</b>
+        <h3 id="pending"></h3>
+      </div>
+      <div class="card"><b>Confirmed</b>
+        <h3 id="confirmed"></h3>
+      </div>
+      <div class="card"><b>Completed</b>
+        <h3 id="completed"></h3>
+      </div>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filters">
+      <input id="search" placeholder="Search patient, phone, serial..." />
+
+      <select id="statusFilter">
+        <option value="all">All Status</option>
+        <option value="pending">Pending</option>
+        <option value="confirmed">Confirmed</option>
+        <option value="completed">Completed</option>
+        <option value="cancelled">Cancelled</option>
+      </select>
+
+      <select id="doctorFilter">
+        <option value="all">All Doctors</option>
+        <option value="d1">Dr. Ahmed</option>
+        <option value="d2">Dr. Rahman</option>
+      </select>
+
+      <button>Export</button>
+    </div>
+
+    <!-- TABLE -->
+    <table>
+      <thead>
+        <tr>
+          <th>Serial</th>
+          <th>Patient</th>
+          <th>Doctor</th>
+          <th>Date</th>
+
+          <!-- ✅ NEW COLUMN ADDED -->
+          <th>Diagnosis No.</th>
+
+          <th>Type</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody id="tableBody"></tbody>
+    </table>
+
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    /* MOCK DATA */
+    let appointments = [
+      {
+        id: "1",
+        serialNumber: 101,
+        patientName: "John Doe",
+        patientPhone: "0123456789",
+        patientEmail: "john@mail.com",
+        doctorId: "d1",
+        doctorName: "Dr. Ahmed",
+        date: "2026-04-17",
+        time: "10:00 AM",
+        type: "checkup",
+        status: "pending",
+        diagnosisNo: 3   // ✅ NEW FIELD
+      },
+      {
+        id: "2",
+        serialNumber: 102,
+        patientName: "Sara Khan",
+        patientPhone: "0199999999",
+        patientEmail: "sara@mail.com",
+        doctorId: "d2",
+        doctorName: "Dr. Rahman",
+        date: "2026-04-18",
+        time: "11:30 AM",
+        type: "follow-up",
+        status: "confirmed",
+        diagnosisNo: 5   // ✅ NEW FIELD
+      }
+    ];
+
+    /* TOAST */
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      toast.innerText = msg;
+      toast.style.display = "block";
+      setTimeout(() => toast.style.display = "none", 2000);
+    }
+
+    /* STATS */
+    function updateStats() {
+      document.getElementById("total").innerText = appointments.length;
+      document.getElementById("pending").innerText = appointments.filter(a => a.status === "pending").length;
+      document.getElementById("confirmed").innerText = appointments.filter(a => a.status === "confirmed").length;
+      document.getElementById("completed").innerText = appointments.filter(a => a.status === "completed").length;
+    }
+
+    /* RENDER TABLE */
+    function renderTable() {
+      const search = document.getElementById("search").value.toLowerCase();
+      const status = document.getElementById("statusFilter").value;
+      const doctor = document.getElementById("doctorFilter").value;
+
+      const filtered = appointments.filter(a =>
+        (a.patientName.toLowerCase().includes(search) ||
+          a.patientPhone.includes(search) ||
+          a.serialNumber.toString().includes(search)) &&
+        (status === "all" || a.status === status) &&
+        (doctor === "all" || a.doctorId === doctor)
+      );
+
+      const tbody = document.getElementById("tableBody");
+      tbody.innerHTML = "";
+
+      filtered.forEach(a => {
+        tbody.innerHTML += `
+          <tr>
+            <td>#${a.serialNumber}</td>
+            <td>${a.patientName}<br><small>${a.patientPhone}</small></td>
+            <td>${a.doctorName}</td>
+            <td>${a.date} ${a.time}</td>
+
+            <!-- ✅ NEW COLUMN VALUE -->
+            <td>${a.diagnosisNo}</td>
+
+            <td>${a.type}</td>
+            <td>
+              <select onchange="changeStatus('${a.id}', this.value)">
+                <option ${a.status === "pending" ? "selected" : ""}>pending</option>
+                <option ${a.status === "confirmed" ? "selected" : ""}>confirmed</option>
+                <option ${a.status === "completed" ? "selected" : ""}>completed</option>
+                <option ${a.status === "cancelled" ? "selected" : ""}>cancelled</option>
+              </select>
+            </td>
+            <td>
+              <button onclick="callPatient('${a.patientName}','${a.patientPhone}')">📞</button>
+              <button onclick="emailPatient('${a.patientName}','${a.patientEmail}')">✉</button>
+            </td>
+          </tr>
+        `;
+      });
+
+      updateStats();
+    }
+
+    /* ACTIONS */
+    function changeStatus(id, status) {
+      appointments = appointments.map(a =>
+        a.id === id ? { ...a, status } : a
+      );
+      showToast("Status updated to " + status);
+      renderTable();
+    }
+
+    function callPatient(name, phone) {
+      showToast("Calling " + name + " (" + phone + ")");
+    }
+
+    function emailPatient(name, email) {
+      showToast("Email to " + name + " (" + email + ")");
+    }
+
+    /* EVENTS */
+    document.getElementById("search").addEventListener("input", renderTable);
+    document.getElementById("statusFilter").addEventListener("change", renderTable);
+    document.getElementById("doctorFilter").addEventListener("change", renderTable);
+
+    /* INIT */
+    renderTable();
+    lucide.createIcons();
+
+    function logoutUser() {
+      alert("Logged out successfully!");
+      window.location.href = "login.html";
+    }
+  </script>
+
+</body>
+
+</html>
