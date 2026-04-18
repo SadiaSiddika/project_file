@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Clinical Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="../styles/clinic_administrator_dashboard.css">
+
+  <style>
+    /* ✅ SIDEBAR UPDATED DESIGN */
+    .sidebar {
+      width: 250px;
+      height: 100vh;
+      padding: 30px 20px;
+      background: linear-gradient(180deg, #c8d98f, #b9cc7a);
+    }
+
+    .sidebar h2 {
+      margin-bottom: 30px;
+      color: #1f2937;
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding: 14px 16px;
+      border: none;
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+      margin-bottom: 12px;
+      font-size: 16px;
+      color: #1f2937;
+      border-radius: 12px;
+      transition: all 0.2s ease;
+    }
+
+    .menu i {
+      width: 20px;
+      height: 20px;
+    }
+
+    .menu:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .menu.active {
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      font-weight: 500;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="logo">🦋 ThyroScan</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="">Notification</a></li>
+      <li><button onclick="logoutUser()">Logout</button></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <h2>Menu</h2>
+
+      <button class="menu active">
+        <i data-lucide="layout-dashboard"></i>
+        Dashboard
+      </button>
+
+      <!-- ✅ FIXED: Doctors navigation added -->
+      <button class="menu" onclick="window.location.href='doctor.html'">
+        <i data-lucide="users"></i>
+        Doctors
+      </button>
+
+      <button class="menu">
+        <i data-lucide="clipboard-list"></i>
+        Patients History
+      </button>
+
+      <button class="menu">
+        <i data-lucide="bar-chart-3"></i>
+        Analytics
+      </button>
+
+      <button class="menu">
+        <i data-lucide="file-text"></i>
+        Reports
+      </button>
+    </aside>
+
+    <!-- MAIN (UNCHANGED) -->
+    <main class="main">
+
+      <div class="stats">
+
+        <div class="card blue">
+          <i data-lucide="users"></i>
+          <h4>Total Patients</h4>
+          <h2>248</h2>
+          <span>+12%</span>
+        </div>
+
+        <div class="card green">
+          <i data-lucide="activity"></i>
+          <h4>Active Doctors</h4>
+          <h2>12</h2>
+          <span>+2</span>
+        </div>
+
+        <div class="card purple">
+          <i data-lucide="file-text"></i>
+          <h4>Reports Generated</h4>
+          <h2>156</h2>
+          <span>+8%</span>
+        </div>
+
+        <div class="card orange">
+          <i data-lucide="trending-up"></i>
+          <h4>Avg. Success Rate</h4>
+          <h2>94.2%</h2>
+          <span>+3.1%</span>
+        </div>
+
+      </div>
+
+      <div class="grid">
+
+        <div class="box">
+          <h3>Thyroid Cancer Prediction History</h3>
+          <canvas id="chart"></canvas>
+        </div>
+
+        <div class="box">
+          <h3>Recent Activities</h3>
+
+          <div class="activity">
+            <span class="dot blue"></span>
+            <div>
+              <p>New patient registered</p>
+              <small>10 minutes ago</small>
+            </div>
+          </div>
+
+          <div class="activity">
+            <span class="dot green"></span>
+            <div>
+              <p>Dr. Ahmed Hassan completed 5 diagnoses</p>
+              <small>1 hour ago</small>
+            </div>
+          </div>
+
+          <div class="activity">
+            <span class="dot purple"></span>
+            <div>
+              <p>Lab report uploaded for patient #248</p>
+              <small>2 hours ago</small>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    const ctx = document.getElementById('chart').getContext('2d');
+
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+          label: 'Thyroid Risk Cases',
+          data: [12, 19, 7, 15, 22, 11],
+          backgroundColor: '#3b82f6'
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false
+      }
+    });
+
+    function logoutUser() {
+      sessionStorage.removeItem("patientName");
+      alert("You have been logged out.");
+      window.location.href = "login.html";
+    }
+  </script>
+
+</body>
+
+</html>

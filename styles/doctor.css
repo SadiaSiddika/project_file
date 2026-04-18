@@ -1,0 +1,109 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f6fa;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+}
+
+/* CARDS */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.card {
+  color: white;
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card i {
+  width: 40px;
+  height: 40px;
+  opacity: 0.8;
+}
+
+.blue { background: linear-gradient(#3b82f6,#2563eb); }
+.green { background: linear-gradient(#22c55e,#16a34a); }
+.purple { background: linear-gradient(#a855f7,#7e22ce); }
+
+/* TABLE */
+.table-container {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.table-header {
+  padding: 15px;
+  color: white;
+  font-weight: bold;
+  background: linear-gradient(to right, #2563eb, #1d4ed8);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #f9fafb;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  font-size: 12px;
+  color: #6b7280;
+  text-transform: uppercase;
+}
+
+tr {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+tr:hover {
+  background: #f9fafb;
+}
+
+/* USER CELL */
+.user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user i {
+  background: #dbeafe;
+  padding: 5px;
+  border-radius: 50%;
+  color: #2563eb;
+}
+
+/* STATUS */
+.status {
+  background: #dcfce7;
+  color: #166534;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+/* RATING */
+.rating {
+  color: #d97706;
+  font-weight: bold;
+}

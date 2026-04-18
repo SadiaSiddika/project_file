@@ -1,0 +1,140 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f6fa;
+}
+
+.container {
+  display: flex;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 220px;
+  height: 100vh;
+  padding: 20px;
+  background: linear-gradient(#c8d98f, #d4e3a0);
+}
+
+.menu {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+.menu.active {
+  background: rgba(255,255,255,0.6);
+  border-radius: 8px;
+}
+
+/* MAIN */
+.main {
+  flex: 1;
+  padding: 20px;
+}
+
+/* STATS */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap: 20px;
+}
+
+.card {
+  padding: 20px;
+  color: white;
+  border-radius: 10px;
+  position: relative;
+}
+
+.card i {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.blue { background: linear-gradient(#3b82f6,#2563eb); }
+.green { background: linear-gradient(#22c55e,#16a34a); }
+.purple { background: linear-gradient(#a855f7,#7e22ce); }
+.orange { background: linear-gradient(#f97316,#ea580c); }
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.box {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  height: 320px;
+}
+
+/* IMPORTANT FIX */
+#chart {
+  width: 100% !important;
+  height: 250px !important;
+}
+
+/* ACTIVITY */
+.activity {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 6px;
+}
+
+.dot.blue { background: blue; }
+.dot.green { background: green; }
+.dot.purple { background: purple; }
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #4f46e5;
+  color: #fff;
+  padding: 1rem 2rem;
+}
+
+.navbar .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.navbar .nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+.navbar .nav-links li a,
+.navbar .nav-links li button {
+  color: #fff;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.3rem 0.5rem;
+  transition: 0.3s;
+}
+
+.navbar .nav-links li a:hover,
+.navbar .nav-links li button:hover {
+  background-color: #6366f1;
+  border-radius: 5px;
+}
