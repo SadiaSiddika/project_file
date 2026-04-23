@@ -65,13 +65,20 @@
 
 <body>
 
+  <nav class="navbar">
+    <div class="logo">🦋 ThyroScan</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><button onclick="logoutUser()">Logout</button></li>
+    </ul>
+  </nav>
+
   <div class="layout">
 
     <!-- SIDEBAR -->
     <aside class="sidebar">
       <h2>Menu</h2>
 
-      <!-- ✅ FIXED: Dashboard navigation added -->
       <button class="menu" onclick="window.location.href='clinic_administrator_dashboard.html'">
         <i data-lucide="layout-dashboard"></i> Dashboard
       </button>
@@ -80,15 +87,16 @@
         <i data-lucide="users"></i> Doctors
       </button>
 
-      <button class="menu">
+      <!-- ✅ FIXED: Navigation added -->
+      <button class="menu" onclick="window.location.href='patienthistory.html'">
         <i data-lucide="clipboard-list"></i> Patients History
       </button>
 
-      <button class="menu">
+      <button class="menu" onclick="window.location.href='analytics.html'">
         <i data-lucide="bar-chart-3"></i> Analytics
       </button>
 
-      <button class="menu">
+      <button class="menu" onclick="window.location.href='report_clinic.html'">
         <i data-lucide="file-text"></i> Reports
       </button>
     </aside>
@@ -229,9 +237,18 @@
 
   </div>
 
+
+
   <script>
     lucide.createIcons();
+    function logoutUser() {
+      sessionStorage.removeItem("patientName");
+      alert("You have been logged out.");
+      window.location.href = "login.html";
+    }
+
   </script>
+
 
 </body>
 

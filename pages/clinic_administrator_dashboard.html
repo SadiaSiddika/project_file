@@ -16,7 +16,6 @@
   <link rel="stylesheet" href="../styles/clinic_administrator_dashboard.css">
 
   <style>
-    /* ✅ SIDEBAR UPDATED DESIGN */
     .sidebar {
       width: 250px;
       height: 100vh;
@@ -85,29 +84,30 @@
         Dashboard
       </button>
 
-      <!-- ✅ FIXED: Doctors navigation added -->
       <button class="menu" onclick="window.location.href='doctor.html'">
         <i data-lucide="users"></i>
         Doctors
       </button>
 
-      <button class="menu">
+      <!-- ✅ FIXED -->
+      <button class="menu" onclick="window.location.href='patienthistory.html'">
         <i data-lucide="clipboard-list"></i>
         Patients History
       </button>
 
-      <button class="menu">
+      <!-- ✅ FIXED -->
+      <button class="menu" onclick="window.location.href='analytics.html'">
         <i data-lucide="bar-chart-3"></i>
         Analytics
       </button>
 
-      <button class="menu">
+      <button class="menu" onclick="window.location.href='report_clinic.html'">
         <i data-lucide="file-text"></i>
         Reports
       </button>
     </aside>
 
-    <!-- MAIN (UNCHANGED) -->
+    <!-- MAIN -->
     <main class="main">
 
       <div class="stats">
@@ -183,6 +183,34 @@
     </main>
 
   </div>
+  <div class="contact-section">
+    <div>
+      <h2>Contact Us</h2>
+      <p>📍 123 Medical Center Drive</p>
+      <p>New York, NY 10001</p>
+
+      <p><b>Phone:</b> (555) 123-4567</p>
+      <p><b>Email:</b> info@thyroidcare.com</p>
+    </div>
+
+    <div>
+      <h3>Hours</h3>
+      <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
+      <p>Saturday: 9:00 AM - 2:00 PM</p>
+      <p>Sunday: Closed</p>
+    </div>
+
+    <div>
+      <h3>Emergency</h3>
+      <p>For medical emergencies, please call 911 or visit the nearest emergency room.</p>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2026 ThyroScan. All Rights Reserved.</p>
+  </footer>
 
   <script>
     lucide.createIcons();
@@ -210,6 +238,8 @@
       alert("You have been logged out.");
       window.location.href = "login.html";
     }
+
+
   </script>
 
 </body>

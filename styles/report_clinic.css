@@ -1,0 +1,167 @@
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #f5f6fa;
+}
+
+/* LAYOUT */
+.layout { display: flex; }
+
+/* SIDEBAR */
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  padding: 30px 20px;
+  background: linear-gradient(#c8d98f, #b9cc7a);
+}
+
+.menu {
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+  border: none;
+  background: none;
+  width: 100%;
+  margin-bottom: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.menu.active { background: rgba(255,255,255,0.7); }
+
+/* MAIN */
+.main { flex: 1; padding: 20px; }
+
+/* HEADER */
+.header {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+/* CARDS */
+.doc-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.doc-card {
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.blue { background: #2563eb; }
+.purple { background: #7e22ce; }
+.green { background: #16a34a; }
+.orange { background: #ea580c; }
+
+/* REPORT BOX */
+.report-box {
+  background: white;
+  border-radius: 10px;
+}
+
+.report-header {
+  background: #2563eb;
+  color: white;
+  padding: 15px;
+}
+
+.report-content { padding: 15px; }
+
+/* SEARCH */
+.search-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.search-bar input,
+.search-bar select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* REPORT ITEM */
+.report-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.left {
+  display: flex;
+  gap: 10px;
+}
+
+.icon {
+  background: #dbeafe;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.status.green {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status.yellow {
+  background: #fef9c3;
+  color: #92400e;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #4f46e5;
+  color: #fff;
+  padding: 1rem 2rem;
+}
+
+.navbar .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.navbar .nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+.navbar .nav-links li a,
+.navbar .nav-links li button {
+  color: #fff;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.3rem 0.5rem;
+  transition: 0.3s;
+}
+
+.navbar .nav-links li a:hover,
+.navbar .nav-links li button:hover {
+  background-color: #6366f1;
+  border-radius: 5px;
+}

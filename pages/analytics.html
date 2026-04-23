@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Analytics Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="../styles/analytics.css">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <nav class="navbar">
+    <div class="logo">🦋 ThyroScan</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><button onclick="logoutUser()">Logout</button></li>
+    </ul>
+  </nav>
+
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <h3>Menu</h3>
+
+      <!-- ✅ FIXED -->
+      <button class="menu" onclick="window.location.href='clinic_administrator_dashboard.html'">
+        Dashboard
+      </button>
+
+      <!-- ✅ FIXED -->
+      <button class="menu" onclick="window.location.href='doctor.html'">
+        Doctors
+      </button>
+
+      <!-- ✅ FIXED -->
+      <button class="menu" onclick="window.location.href='patienthistory.html'">
+        Patients History
+      </button>
+
+      <button class="menu active">
+        Analytics
+      </button>
+
+      <!-- ✅ FIXED -->
+      <button class="menu" onclick="window.location.href='report_clinic.html'">
+        Reports
+      </button>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+
+      <!-- STATS -->
+      <div class="stats">
+
+        <div class="card cyan">
+          <p>Total Cases (2025)</p>
+          <h2 id="totalCases"></h2>
+        </div>
+
+        <div class="card red">
+          <p>Positive Diagnosis</p>
+          <h2 id="totalDiagnosed"></h2>
+        </div>
+
+        <div class="card green">
+          <p>Diagnosis Rate</p>
+          <h2 id="rate"></h2>
+        </div>
+
+      </div>
+
+      <!-- MAIN CHART -->
+      <div class="box">
+
+        <div class="box-header">
+          <h3>Thyroid Diagnosis History - 2025</h3>
+
+          <div>
+            <button onclick="showBar()">Bar</button>
+            <button onclick="showLine()">Line</button>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <canvas id="mainChart"></canvas>
+        </div>
+
+      </div>
+
+      <!-- QUARTERLY CHART -->
+      <div class="box">
+
+        <h3>Quarterly Disease Trends - 2025</h3>
+
+        <div class="chart-container">
+          <canvas id="quarterChart"></canvas>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const monthlyData = [
+      { month: 'Jan', cases: 12, diagnosed: 8, negative: 4 },
+      { month: 'Feb', cases: 19, diagnosed: 15, negative: 4 },
+      { month: 'Mar', cases: 7, diagnosed: 5, negative: 2 },
+      { month: 'Apr', cases: 15, diagnosed: 11, negative: 4 },
+      { month: 'May', cases: 22, diagnosed: 18, negative: 4 },
+      { month: 'Jun', cases: 11, diagnosed: 7, negative: 4 },
+      { month: 'Jul', cases: 16, diagnosed: 12, negative: 4 },
+      { month: 'Aug', cases: 14, diagnosed: 10, negative: 4 },
+      { month: 'Sep', cases: 18, diagnosed: 14, negative: 4 },
+      { month: 'Oct', cases: 20, diagnosed: 16, negative: 4 },
+      { month: 'Nov', cases: 13, diagnosed: 9, negative: 4 },
+      { month: 'Dec', cases: 17, diagnosed: 13, negative: 4 },
+    ];
+
+    const quarterlyData = [
+      { quarter: 'Q1', thyroid: 95, diabetes: 120, hypertension: 78 },
+      { quarter: 'Q2', thyroid: 112, diabetes: 135, hypertension: 85 },
+      { quarter: 'Q3', thyroid: 98, diabetes: 128, hypertension: 92 },
+      { quarter: 'Q4', thyroid: 118, diabetes: 145, hypertension: 88 },
+    ];
+
+    const totalCases = monthlyData.reduce((a, b) => a + b.cases, 0);
+    const totalDiagnosed = monthlyData.reduce((a, b) => a + b.diagnosed, 0);
+    const rate = ((totalDiagnosed / totalCases) * 100).toFixed(1);
+
+    document.getElementById("totalCases").innerText = totalCases;
+    document.getElementById("totalDiagnosed").innerText = totalDiagnosed;
+    document.getElementById("rate").innerText = rate + "%";
+
+    const ctx = document.getElementById("mainChart").getContext("2d");
+
+    let chart = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: monthlyData.map(d => d.month),
+        datasets: [
+          { label: "Cases", data: monthlyData.map(d => d.cases), backgroundColor: "#3b82f6" },
+          { label: "Diagnosed", data: monthlyData.map(d => d.diagnosed), backgroundColor: "#ef4444" },
+          { label: "Negative", data: monthlyData.map(d => d.negative), backgroundColor: "#10b981" }
+        ]
+      }
+    });
+
+    function showBar() {
+      chart.destroy();
+      chart = new Chart(ctx, {
+        type: "bar",
+        data: chart.data
+      });
+    }
+
+    function showLine() {
+      chart.destroy();
+      chart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: monthlyData.map(d => d.month),
+          datasets: [
+            { label: "Cases", data: monthlyData.map(d => d.cases), borderColor: "#3b82f6", fill: false },
+            { label: "Diagnosed", data: monthlyData.map(d => d.diagnosed), borderColor: "#ef4444", fill: false },
+            { label: "Negative", data: monthlyData.map(d => d.negative), borderColor: "#10b981", fill: false }
+          ]
+        }
+      });
+    }
+
+    new Chart(document.getElementById("quarterChart"), {
+      type: "bar",
+      data: {
+        labels: quarterlyData.map(d => d.quarter),
+        datasets: [
+          { label: "Thyroid", data: quarterlyData.map(d => d.thyroid), backgroundColor: "#06b6d4" },
+          { label: "Diabetes", data: quarterlyData.map(d => d.diabetes), backgroundColor: "#f59e0b" },
+          { label: "Hypertension", data: quarterlyData.map(d => d.hypertension), backgroundColor: "#8b5cf6" }
+        ]
+      }
+    });
+
+    function logoutUser() {
+      sessionStorage.removeItem("patientName");
+      alert("You have been logged out.");
+      window.location.href = "login.html";
+    }
+
+  </script>
+
+</body>
+
+</html>

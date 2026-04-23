@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Reports Section</title>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="../styles/report_clinic.css">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">🦋 ThyroScan</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><button onclick="logoutUser()">Logout</button></li>
+    </ul>
+  </nav>
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <h2>Menu</h2>
+
+      <!-- ✅ FIXED NAVIGATION -->
+      <button class="menu" onclick="window.location.href='clinic_administrator_dashboard.html'">
+        <i data-lucide="layout-dashboard"></i>Dashboard
+      </button>
+
+      <button class="menu" onclick="window.location.href='doctor.html'">
+        <i data-lucide="users"></i>Doctors
+      </button>
+
+      <button class="menu" onclick="window.location.href='patienthistory.html'">
+        <i data-lucide="clipboard-list"></i>Patients History
+      </button>
+
+      <button class="menu" onclick="window.location.href='analytics.html'">
+        <i data-lucide="bar-chart-3"></i>Analytics
+      </button>
+
+      <button class="menu active">
+        <i data-lucide="file-text"></i>Reports
+      </button>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="main">
+
+      <!-- HEADER -->
+      <div class="header">
+        <h1>Reports Dashboard</h1>
+      </div>
+
+      <div class="container">
+
+        <!-- DOCUMENT CARDS -->
+        <div class="doc-grid">
+
+          <div class="doc-card blue">
+            <p>Lab Reports</p>
+            <h2>156</h2>
+          </div>
+
+          <div class="doc-card purple">
+            <p>Imaging Reports</p>
+            <h2>98</h2>
+          </div>
+
+          <div class="doc-card green">
+            <p>Diagnosis Reports</p>
+            <h2>234</h2>
+          </div>
+
+          <div class="doc-card orange">
+            <p>Prescriptions</p>
+            <h2>412</h2>
+          </div>
+
+        </div>
+
+        <!-- REPORT LIST -->
+        <div class="report-box">
+
+          <div class="report-header">
+            Recent Patient Reports & Documents
+          </div>
+
+          <div class="report-content">
+
+            <!-- SEARCH -->
+            <div class="search-bar">
+              <input type="text" placeholder="Search by patient name or report type...">
+              <select>
+                <option>All Reports</option>
+                <option>Diagnosis Reports</option>
+                <option>Lab Reports</option>
+                <option>Imaging Reports</option>
+              </select>
+            </div>
+
+            <!-- REPORT ITEMS -->
+
+            <!-- 1 -->
+            <div class="report-item">
+              <div class="left">
+                <div class="icon"><i data-lucide="file-text"></i></div>
+                <div>
+                  <h4>Thyroid Diagnosis Report</h4>
+                  <p>Ahmad Ibrahim | 2026-04-15 | Dr. Ahmed Hassan | 2.4 MB</p>
+                </div>
+              </div>
+              <div class="right">
+                <span class="status green">Completed</span>
+                <i data-lucide="eye"></i>
+                <i data-lucide="download"></i>
+              </div>
+            </div>
+
+            <!-- 2 -->
+            <div class="report-item">
+              <div class="left">
+                <div class="icon"><i data-lucide="file-text"></i></div>
+                <div>
+                  <h4>Ultrasound Report</h4>
+                  <p>Fatima Ali | 2026-04-14 | Dr. Rahman Ali | 3.1 MB</p>
+                </div>
+              </div>
+              <div class="right">
+                <span class="status green">Completed</span>
+                <i data-lucide="eye"></i>
+                <i data-lucide="download"></i>
+              </div>
+            </div>
+
+            <!-- 3 -->
+            <div class="report-item">
+              <div class="left">
+                <div class="icon"><i data-lucide="file-text"></i></div>
+                <div>
+                  <h4>Blood Test Results</h4>
+                  <p>Hassan Mohammad | 2026-04-13 | Dr. Sarah Khan | 1.8 MB</p>
+                </div>
+              </div>
+              <div class="right">
+                <span class="status green">Completed</span>
+                <i data-lucide="eye"></i>
+                <i data-lucide="download"></i>
+              </div>
+            </div>
+
+            <!-- 4 -->
+            <div class="report-item">
+              <div class="left">
+                <div class="icon"><i data-lucide="file-text"></i></div>
+                <div>
+                  <h4>Biopsy Report</h4>
+                  <p>Aisha Rahman | 2026-04-12 | Dr. Emily Chen | 4.2 MB</p>
+                </div>
+              </div>
+              <div class="right">
+                <span class="status yellow">Pending</span>
+                <i data-lucide="eye"></i>
+                <i data-lucide="download"></i>
+              </div>
+            </div>
+
+            <!-- 5 -->
+            <div class="report-item">
+              <div class="left">
+                <div class="icon"><i data-lucide="file-text"></i></div>
+                <div>
+                  <h4>CT Scan Report</h4>
+                  <p>Omar Khalid | 2026-04-11 | Dr. Rahman Ali | 5.6 MB</p>
+                </div>
+              </div>
+              <div class="right">
+                <span class="status green">Completed</span>
+                <i data-lucide="eye"></i>
+                <i data-lucide="download"></i>
+              </div>
+            </div>
+
+            <!-- 6 -->
+            <div class="report-item">
+              <div class="left">
+                <div class="icon"><i data-lucide="file-text"></i></div>
+                <div>
+                  <h4>Thyroid Function Test</h4>
+                  <p>Layla Ahmed | 2026-04-10 | Dr. Ahmed Hassan | 1.9 MB</p>
+                </div>
+              </div>
+              <div class="right">
+                <span class="status green">Completed</span>
+                <i data-lucide="eye"></i>
+                <i data-lucide="download"></i>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    lucide.createIcons();
+    function logoutUser() {
+      sessionStorage.removeItem("patientName");
+      alert("You have been logged out.");
+      window.location.href = "login.html";
+    }
+  </script>
+
+</body>
+
+</html>

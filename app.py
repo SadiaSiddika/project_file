@@ -4,100 +4,115 @@ import pandas as pd
 import requests
 from datetime import datetime
 
-# ---------------- PAGE CONFIG ----------------
-st.set_page_config(
-    page_title="Thyroid Cancer Recurrence Risk Prediction System",
-    page_icon="🦋",
-    layout="wide"
-)
-
-# ---------------- GET PATIENT NAME ----------------
-try:
-    query_params = st.query_params
-    patient_name = query_params.get("patient", "Unknown")
-except:
-    patient_name = "Unknown"
-
-# ✅ SHOW NAME CLEARLY
-st.sidebar.success(f"👤 Patient: {patient_name}")
+# ---------------- CONFIG ----------------
+st.set_page_config(page_title="Thyroid Prediction System", layout="wide")
 
 # ---------------- LOAD MODEL ----------------
-with open("model.pkl", "rb") as f:
-    model = pickle.load(f)
+model = pickle.load(open("model.pkl", "rb"))
 
-with open("scaler.pkl", "rb") as f:
-    scaler = pickle.load(f)
+# ---------------- INPUT ----------------
+st.sidebar.header("Patient Input")
 
-with open("encoders.pkl", "rb") as f:
-    label_encoders = pickle.load(f)
-
-with open("feature_order.pkl", "rb") as f:
-    feature_order = pickle.load(f)
-
-# ---------------- SIDEBAR ----------------
-st.sidebar.header("📋 Input Patient Clinical Feature")
+patient_name = st.sidebar.text_input("Patient Name")
 
 age = st.sidebar.number_input("Age", 0, 120, 45)
-sex = st.sidebar.selectbox("Gender", ["F", "M"])
+gender = st.sidebar.selectbox("Gender", ["F", "M"])
 smoking = st.sidebar.selectbox("Smoking", ["No", "Yes"])
 hx_smoking = st.sidebar.selectbox("Hx Smoking", ["No", "Yes"])
-hx_radiotherapy = st.sidebar.selectbox("Hx Radiotherapy", ["No", "Yes"])
-thyroid_function = st.sidebar.selectbox("Thyroid Function", ["Euthyroid", "Hypothyroid", "Hyperthyroid"])
-physical_exam = st.sidebar.selectbox("Physical Examination", ["Diffuse goiter", "Nodular goiter", "Normal"])
-adenopathy = st.sidebar.selectbox("Adenopathy", ["No","Right","Posterior","Bilateral","Left","Extensive"])
-pathology = st.sidebar.selectbox("Pathology", ["Papillary", "Follicular", "Medullary", "Anaplastic"])
+hx_radiotherapy = st.sidebar.selectbox("Hx Radiothreapy", ["No", "Yes"])
+
+thyroid_function = st.sidebar.selectbox(
+    "Thyroid Function",
+    ["Euthyroid", "Hypothyroid", "Clinical Hyperthyroidism",
+     "Subclinical Hypothyroidism", "Hyperthyroid"]
+)
+
+physical_exam = st.sidebar.selectbox(
+    "Physical Examination",
+    ["Diffuse goiter", "Single nodular goiter-left",
+     "Single nodular goiter-right", "Normal",
+     "Multinodular goiter"]
+)
+
+adenopathy = st.sidebar.selectbox(
+    "Adenopathy",
+    ["No","Right","Posterior","Bilateral","Left","Extensive"]
+)
+
+pathology = st.sidebar.selectbox(
+    "Pathology",
+    ["Papillary", "Follicular", "Micropapillary", "Hurthel cell"]
+)
+
 focality = st.sidebar.selectbox("Focality", ["Unifocal", "Multi-Focal"])
 risk = st.sidebar.selectbox("Risk", ["Low", "Intermediate", "High"])
-t = st.sidebar.selectbox("T", ["T1a", "T1b", "T2", "T3", "T4"])
+
+t = st.sidebar.selectbox("T", ["T1a", "T1b", "T2", "T3a", "T3b", "T4a", "T4b"])
 n = st.sidebar.selectbox("N", ["N0", "N1a", "N1b"])
 m = st.sidebar.selectbox("M", ["M0", "M1"])
-stage = st.sidebar.selectbox("Stage", ["I", "II", "III", "IV"])
-response = st.sidebar.selectbox("Response", ["Excellent", "Biochemical Incomplete", "Structural Incomplete", "Indeterminate"])
+stage = st.sidebar.selectbox("Stage", ["I", "II", "III", "IV", "IVA", "IVB"])
+response = st.sidebar.selectbox(
+    "Response",
+    ["Excellent", "Biochemical Incomplete",
+     "Structural Incomplete", "Indeterminate"]
+)
 
-predict_btn = st.sidebar.button("🔍 Predict")
+# ---------------- PREDICT ----------------
+if st.sidebar.button("Predict"):
 
-# ---------------- MAIN ----------------
-st.title("🦋 Thyroid Cancer Recurrence Risk Prediction System")
+    if patient_name == "":
+        st.warning("⚠ Please enter patient name")
+    else:
 
-if predict_btn:
+        input_data = pd.DataFrame([{
+            "Age": age,
+            "Gender": gender,
+            "Smoking": smoking,
+            "Hx Smoking": hx_smoking,
+            "Hx Radiothreapy": hx_radiotherapy,
+            "Thyroid Function": thyroid_function,
+            "Physical Examination": physical_exam,
+            "Adenopathy": adenopathy,
+            "Pathology": pathology,
+            "Focality": focality,
+            "Risk": risk,
+            "T": t,
+            "N": n,
+            "M": m,
+            "Stage": stage,
+            "Response": response
+        }])
 
-    st.subheader(f"📌 Patient Name: {patient_name}")
+        prediction = model.predict(input_data)[0]
 
-    input_data = pd.DataFrame([[age, sex, smoking, hx_smoking, hx_radiotherapy,
-                                thyroid_function, physical_exam, adenopathy,
-                                pathology, focality, risk, t, n, m, stage, response]],
-                              columns=["age","sex","smoking","hx_smoking","hx_radiotherapy",
-                                       "thyroid_function","physical_exam","adenopathy",
-                                       "pathology","focality","risk","t","n","m","stage","response"])
+        try:
+            probability = model.predict_proba(input_data)[0][1] * 100
+        except:
+            probability = 0
 
-    # Encoding
-    for col in input_data.columns:
-        if col in label_encoders:
-            le = label_encoders[col]
-            val = input_data.at[0, col]
-            input_data.at[0, col] = le.transform([val])[0] if val in le.classes_ else -1
+        st.title("🦋 Thyroid Cancer Prediction Result")
 
-    input_data["age"] = scaler.transform(input_data[["age"]])
-    input_data = input_data[feature_order]
+        st.success(f"Prediction: {prediction}")
+        st.info(f"Probability of Recurred: {probability:.2f}%")
 
-    prediction = model.predict(input_data)[0]
-    probability = model.predict_proba(input_data)[0][1] * 100
-
-    st.success(f"Prediction: {'Yes' if prediction == 1 else 'No'}")
-    st.info(f"Probability: {probability:.2f}%")
-
-    # SAVE HISTORY
-    try:
+        # ---------------- SAVE TO BACKEND ----------------
         payload = {
             "patient_name": patient_name,
-            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            "prediction": "Yes" if prediction == 1 else "No",
-            "probability": round(probability, 2)
+            "timestamp": str(datetime.now()),
+            "prediction": str(prediction),
+            "probability": float(probability)
         }
 
-        requests.post("http://127.0.0.1:5000/save_history", json=payload)
+        try:
+            res = requests.post(
+                "http://127.0.0.1:5000/save_history",
+                json=payload
+            )
 
-        st.success("✅ Saved to database")
+            if res.status_code == 200:
+                st.success("✅ Data saved to backend successfully!")
+            else:
+                st.error(f"❌ Backend error: {res.text}")
 
-    except Exception as e:
-        st.error(f"Error: {e}")
+        except Exception as e:
+            st.error(f"❌ Connection error: {e}")
