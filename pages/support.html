@@ -13,7 +13,6 @@
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="support.html">Support</a></li>
-
       <li><button onclick="logoutUser()">Logout</button></li>
     </ul>
   </nav>
@@ -27,11 +26,11 @@
       <!-- Doctor redirect -->
       <a href="doctorappointment.html" class="tab active">Doctor Appointment</a>
 
-      <!-- ✅ FIXED: Redirect to clinic_administrator.html -->
+      <!-- Clinic Admin -->
       <a href="clinical_administrator.html" class="tab">Clinic Administrators</a>
 
-      <!-- KEEP SAME -->
-      <button class="tab" onclick="showTab('report')">Report</button>
+      <!-- ✅ FIXED: Now redirects to report.html -->
+      <a href="report.html" class="tab">Report</a>
     </div>
 
     <!-- ================= DOCTOR ================= -->
@@ -150,7 +149,7 @@
 
   </div>
 
-  <!-- TAB SCRIPT -->
+  <!-- TAB SCRIPT (kept unchanged) -->
   <script>
     function showTab(id) {
       document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
@@ -158,6 +157,11 @@
 
       document.getElementById(id).classList.add("active");
       event.target.classList.add("active");
+    }
+
+    function logoutUser() {
+      alert("Logged out successfully!");
+      window.location.href = "login.html";
     }
   </script>
 

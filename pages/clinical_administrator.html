@@ -219,12 +219,38 @@
     }
 
     function book() {
-      if (!name.value || !phone.value || !email.value || !date.value || !selectedTime) {
-        alert("Please fill all fields"); return;
-      }
-      alert("Appointment booked successfully!");
-    }
+      const nameInput = document.getElementById("name");
+      const phoneInput = document.getElementById("phone");
+      const emailInput = document.getElementById("email");
+      const dateInput = document.getElementById("date");
 
+      if (!nameInput.value || !phoneInput.value || !emailInput.value || !dateInput.value || !selectedTime) {
+        alert("Please fill all fields");
+        return;
+      }
+
+      const bookingData = {
+        patientName: nameInput.value,
+        phone: phoneInput.value,
+        email: emailInput.value,
+        date: dateInput.value,
+        time: selectedTime,
+        doctor: document.getElementById("docName").innerText,
+        specialization: document.getElementById("docSpec").innerText
+      };
+
+      // Get previous bookings
+      let bookings = JSON.parse(localStorage.getItem("appointments")) || [];
+
+      // Add new booking
+      bookings.push(bookingData);
+
+      // Save back
+      localStorage.setItem("appointments", JSON.stringify(bookings));
+
+      // Redirect
+      window.location.href = "notification.html";
+    }
     renderDoctors();
     function logoutUser() {
       alert("Logged out successfully!");

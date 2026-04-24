@@ -5,10 +5,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Medical Report</title>
-  <link rel="stylesheet" href="report.css">
+  <link rel="stylesheet" href="../styles/report.css">
 </head>
 
 <body>
+  <nav class="navbar">
+    <div class="logo">🦋 ThyroScan</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="support.html">Support</a></li>
+    </ul>
+  </nav>
 
   <!-- Report Card -->
   <div class="card">
@@ -21,7 +28,6 @@
         <div class="workflow-step-icon">📄</div>
         <div class="step-content">
           <h3>Download the Medical Report</h3>
-
         </div>
       </div>
       <div id="report-output" class="report-output" style="display:none;"></div>
@@ -59,7 +65,21 @@
     </div>
   </div>
 
+  <!-- ✅ DOWNLOAD SCRIPT (ADDED ONLY THIS) -->
+  <script>
+    function downloadReport() {
+      // Make sure this file exists inside your project folder
+      const filePath = "../Downloads/diagnosis_history.csv";
 
+      const link = document.createElement("a");
+      link.href = filePath;
+      link.download = "diagnosis_history.csv";
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  </script>
 
 </body>
 

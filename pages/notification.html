@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Appointment Notification</title>
+  <link rel="stylesheet" href="../styles/notification.css">
+</head>
+
+<body>
+
+  <div class="notification-container">
+
+    <div class="card">
+      <h1>✅ Appointment Confirmed</h1>
+      <p>Your booking has been successfully submitted.</p>
+
+      <div class="details">
+        <p><b>Patient Name:</b> <span id="n_name"></span></p>
+        <p><b>Doctor:</b> <span id="n_doctor"></span></p>
+        <p><b>Specialization:</b> <span id="n_spec"></span></p>
+        <p><b>Date:</b> <span id="n_date"></span></p>
+        <p><b>Time:</b> <span id="n_time"></span></p>
+        <p><b>Phone:</b> <span id="n_phone"></span></p>
+        <p><b>Email:</b> <span id="n_email"></span></p>
+      </div>
+
+      <button onclick="goHome()">Back to Home</button>
+    </div>
+
+  </div>
+
+  <script>
+    const bookings = JSON.parse(localStorage.getItem("appointments")) || [];
+
+    const container = document.querySelector(".details");
+
+    if (bookings.length > 0) {
+      container.innerHTML = "";
+
+      bookings.forEach((data, index) => {
+        container.innerHTML += `
+      <div style="border-bottom:1px solid #ddd; margin-bottom:15px; padding-bottom:10px;">
+        <h3>Notification ${index + 1}</h3>
+        <p><b>Patient Name:</b> ${data.patientName}</p>
+        <p><b>Doctor:</b> ${data.doctor}</p>
+        <p><b>Specialization:</b> ${data.specialization}</p>
+        <p><b>Date:</b> ${data.date}</p>
+        <p><b>Time:</b> ${data.time}</p>
+        <p><b>Phone:</b> ${data.phone}</p>
+        <p><b>Email:</b> ${data.email}</p>
+      </div>
+    `;
+      });
+
+    } else {
+      container.innerHTML = "<h3>No notifications found</h3>";
+    }
+
+    function goHome() {
+      window.location.href = "index.html";
+    }
+  </script>
+
+</body>
+
+</html>
